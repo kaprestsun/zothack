@@ -6,10 +6,42 @@ body {
     align-items: center;
     height: 100vh;
 }
+.header{
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+}
+.homeButton{
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: left; 
+    margin-right: auto;
+    font-family: "Courier New", Courier, monospace;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none; 
+    box-shadow: none;
+
+}
+.homeButton:hover{
+    background-color: #f6c7da;
+    color: black;
+    cursor: grab;
+
+}
+.title{
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    flex: 1;
+}
 
 .container {
     text-align: center;
     font-family: "Courier New", Courier, monospace;
+    font-weight: light; 
     width: 60%;
     padding: 20px;
     background-color: black;
@@ -19,14 +51,9 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.title {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
 form input {
     font-family: "Courier New", Courier, monospace;
-    color: white;
+    color: #f6c7da;
     background-color: black;
     margin: 10px 0;
     padding: 10px;
@@ -35,13 +62,13 @@ form input {
     border-radius: 5px;
 }
 input:hover{
-    background-color: #fde4ef;
+    background-color: #f6c7da;
     color: black;
 }
 
 #submitButton {
     font-family: "Courier New", Courier, monospace;
-    background-color: #fde4ef;
+    background-color: #f6c7da;
     color: black;
     border: none;
     padding: 10px 20px;
@@ -50,5 +77,5 @@ input:hover{
 }
 
 #submitButton:hover {
-    background-color: #f6c7da;
+    background-color: #f5b3cd;
 }
