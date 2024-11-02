@@ -25,11 +25,14 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        return render_template("addEvent.html")
-
-    # @app.route("/addevent")
-    # def create_event():
-    #     return render_template("insert the html page with add event")
+        events = []
+        CSV_file = Path('events.csv')
+        if CSV_file.exists():
+            with CSV_file.open(mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    events.append(row)
+        return render_template("addEvent.html", events=events)
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
@@ -42,10 +45,10 @@ def create_app(test_config=None):
         time = request.form.get("eventTime")
 
         CSV_file = Path('events.csv')
-        event = Event(str(uuid.uuid4(), name, location, school_class, professor, major, time, date))
+        event = Event(str(uuid.uuid4()), name, location, school_class, professor, major, time, date)
         with CSV_file.open(mode='a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(event.event_list)
+            writer.writerow(event.event_list())
         return render_template("index.html")
 
     # @app.route("/attend", methods=["POST"])
@@ -63,8 +66,7 @@ def create_app(test_config=None):
     #     query = request.form.get("search")
     #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
     #     return results
-    
-    return app
+
 
 
 # goback event
