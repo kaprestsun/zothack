@@ -1,5 +1,6 @@
 class Event:
-    def __init__(self, name, location, school_class, professor, major, time, date):
+    def __init__(self, event_id, name, location, school_class, professor, major, time, date):
+        self.event_id = event_id
         self.name = name
         self.school_class = school_class
         self.location = location
@@ -7,4 +8,7 @@ class Event:
         self.major = major
         self.time = time
         self.date = date
+        self.attendees = 0 
 
+    def add_attendee(self):
+        self.attendees += 1
