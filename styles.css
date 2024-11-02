@@ -1,0 +1,54 @@
+body {
+    font-family: "Courier New", Courier, monospace;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+    width: 60%;
+    padding: 20px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+form input {
+    font-family: "Courier New", Courier, monospace;
+    color: white;
+    background-color: black;
+    margin: 10px 0;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+input:hover{
+    background-color: #fde4ef;
+    color: black;
+}
+
+#submitButton {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #fde4ef;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#submitButton:hover {
+    background-color: #f6c7da;
+}
