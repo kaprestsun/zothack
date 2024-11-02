@@ -1,7 +1,6 @@
 #title{
     text-align: center;
-    margin-left: 300px;
-    margin-right: 20px;
+    margin: auto;
     font-size: 90px;
     color: #f5b3cd;
 }
@@ -11,9 +10,11 @@
     font-size: 50px;
     color: white;
     margin: auto;
+    padding: 50px;
 }
 #addEvent{
     border: none;
+    background-color: #f6c7da;
     padding: 15px 32px;
     display: inline-block;
     font-size: 16px;
@@ -22,6 +23,21 @@
 }
 
 #addEvent:hover {
+    background-color:  #f5b3cd; 
+    font-family: "Lucida Console", "Courier New", monospace;
+    cursor: grab;
+}
+
+#attend{
+    border: none;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#attend:hover {
     background-color:  #f5b3cd; 
     color: black;
     font-family: "Lucida Console", "Courier New", monospace;
@@ -34,6 +50,7 @@
 
 .eventList{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     color: white;
@@ -41,9 +58,10 @@
     width: 300px;
     border: 5px solid white;
     border-radius: 8px;
-    padding: 50px;
-    margin: auto;
-}body {
+    padding: 30px;
+}
+
+body {
     font-family: "Lucida Console", "Courier New", Courier, monospace;
     background-color: black;
     display: flex;
@@ -82,12 +100,11 @@
 .title{
     text-align: center;
     font-size: 2em;
-    margin-bottom: 20px;
     margin-right: 85px;
     flex: 1;
 }
 
-.container {
+.eventPage {
     text-align: center;
     font-family: "Courier New", Courier, monospace;
     font-weight: light; 
