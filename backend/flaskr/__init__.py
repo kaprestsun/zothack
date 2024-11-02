@@ -47,7 +47,7 @@ def create_app(test_config=None):
         attendees += 1
         return str(attendees)
     
-    @app.rout("/goback")
+    @app.route("/goback")
     def goback():
         return render_template("index.html")
 
