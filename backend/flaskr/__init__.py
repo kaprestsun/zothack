@@ -1,9 +1,8 @@
 import os
 
 from flask import Flask, jsonify, render_template, request
-from School import Event
+from backend.flaskr.School import Event
 
-attendees = 0
 events = []
 
 def create_app(test_config=None):
@@ -25,7 +24,7 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        return render_template("index.html")
+        return render_template("index.html", events=events)
 
     @app.route("/addevent")
     def create_event():
@@ -41,16 +40,15 @@ def create_app(test_config=None):
         date = request.form.get("eventDate")
         time = request.form.get("eventTime")
 
-        event = Event(name, location, school_class, professor, major, time, date)
+        event = Event(len(events) + 1, name, location, school_class, professor, major, time, date)
         events.append(event)
         return render_template("insert the html page with add event")
 
-
-    @app.route("/attend")
-    def attend():
-        global attendees
-        attendees += 1
-        return str(attendees)
+    @app.route("/attend", methods=["POST"])
+    def attend(event_id):
+        event = events[event_id - 1]
+        event.add_attendee()
+        return event.attendees
     
     @app.route("/goback")
     def goback():
@@ -60,6 +58,7 @@ def create_app(test_config=None):
     def search():
         query = request.form.get("search")
         results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
+        return results
     
     return app
 
