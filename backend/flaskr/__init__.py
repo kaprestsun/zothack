@@ -1,7 +1,10 @@
 import os
 
 from flask import Flask, jsonify, render_template, request
-from backend.flaskr.School import Event
+from flaskr import School
+import os
+import requests
+
 
 events = []
 
@@ -24,11 +27,15 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        return render_template("index.html", events=events)
+        response = {
+        'message': 'Hello, this is a JSON response!'
+    }
+        return jsonify(response)
+        #return render_template("index.html")
 
     @app.route("/addevent")
     def create_event():
-        return render_template("insert the html page with add event")
+        return render_template("insert the html page with add event. THIS IS CORRECT!")
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
@@ -40,7 +47,7 @@ def create_app(test_config=None):
         date = request.form.get("eventDate")
         time = request.form.get("eventTime")
 
-        event = Event(len(events) + 1, name, location, school_class, professor, major, time, date)
+        event = School.Event(name, location, school_class, professor, major, time, date)
         events.append(event)
         return render_template("insert the html page with add event")
 
@@ -58,10 +65,45 @@ def create_app(test_config=None):
     def search():
         query = request.form.get("search")
         results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
-        return results
+
+
+    # Define the endpoint to search for study spots
+    @app.route("/recommendation", methods=["POST"])
+    def recommendation():
+        # Get the location value from the input JSON data
+        data = request.get_json()
+        location = data.get("location")
+        
+        # Validate that the location was provided
+        if not location:
+            return jsonify({"error": "Location is required"}), 400
+        
+        # Yelp API URL and payload
+        url = "https://api.yelp.com/v3/businesses/natural_language_search"
+        payload = {
+            "messages": [{"content": "study spots and cafes"}],
+            "location": location,
+            "timezone": "America/New_York"
+        }
+
+        # Authorization header with API key
+        header = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer " + "6jsrkDuonkZm550GADNb_xr3zEfpQzbn8cpYbBe6UEznghFZkt-Rfgmjx0Qmuy7K3fuuHrbdC82xNNZZTmiaXHSrpjr94ymQh27vNmwuB_uYVd1VADZmdnu2FrAmZ3Yx"
+        }
+        
+        # Send a request to the Yelp API
+        try:
+            response = requests.post(url, json=payload, headers=header)
+            response.raise_for_status()
+            return jsonify(response.json())  # Return Yelp API response as JSON
+        except requests.exceptions.RequestException as e:
+            return jsonify({"error": str(e)}), 500
     
     return app
 
 
-# goback event
-# attend event
+#if __name__ == "__main__":
+   # app = create_app()
+    #app.run(host='0.0.0.0', port=5000, debug=True)
