@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, jsonify, render_template, request
-from School import Event
+#from backend.School import Event
 
 attendees = 0
 
@@ -24,11 +24,17 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        return render_template("index.html")
+        response = {
+            'message': 'Hello, this is a JSON response!'
+        }
+        return jsonify(response)
 
     @app.route("/addevent")
     def create_event():
-        return render_template("insert the html page with add event")
+        response = {
+            'message': 'Hello, this is a JSON response!'
+        }
+        return jsonify(response)
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
@@ -39,7 +45,7 @@ def create_app(test_config=None):
         major = request.form.get("Major")
         hours = request.form.get("Hours")
 
-        event = Event(name, location, school_class, professor, major, hours)
+        #event = Event(name, location, school_class, professor, major, hours)
 
     @app.route("/attend")
     def attend():
@@ -47,12 +53,8 @@ def create_app(test_config=None):
         attendees += 1
         return str(attendees)
     
-    @app.rout("/goback")
+    @app.route("/goback")
     def goback():
         return render_template("index.html")
 
     return app
-
-
-# goback event
-# attend event
