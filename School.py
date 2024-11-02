@@ -1,5 +1,5 @@
 class Event:
-    def __init__(self, name, school_class, location, professor, major, hours):
+    def __init__(self, name, location, school_class, professor, major, hours):
         self.name = name
         self.school_class = school_class
         self.location = location
