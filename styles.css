@@ -10,11 +10,13 @@ body {
     text-align: center;
     display: flex; 
     justify-content: center;
+    width: 100%;
 }
 .homeButton{
     height: fit-content;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 10px;
     text-align: left; 
     margin-right: auto;
     font-family: "Courier New", Courier, monospace;
@@ -23,6 +25,7 @@ body {
     border: none;
     outline: none; 
     box-shadow: none;
+    border-radius: 5px;
 
 }
 .homeButton:hover{
@@ -35,6 +38,7 @@ body {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
+    margin-right: 85px;
     flex: 1;
 }
 
