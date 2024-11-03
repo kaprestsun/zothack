@@ -41,7 +41,7 @@ def create_app(test_config=None):
         location = request.form.get("eventLocation")
         school_class = request.form.get("eventClass")
         professor = request.form.get("eventProfessor")
-        major = request.form.get("Major")
+        major = request.form.get("eventMajor")
         date = request.form.get("eventDate")
         time = request.form.get("eventTime")
 
