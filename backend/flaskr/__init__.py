@@ -7,9 +7,12 @@ from pathlib import Path
 import csv
 import os
 import requests
+from flask_cors import CORS
+
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -63,18 +66,34 @@ def create_app(test_config=None):
     def goback():
         return render_template("index.html")
     
-    @app.route("/search")
-    def search():
-        query = request.form.get("search")
-        results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
+    @app.route("/filter", methods=["POST"])
+    def filter_events():
+        search_query = request.form.get("className")
+        
+        if not search_query:
+            return jsonify({"error": "Class name is required"}), 400
+
+        events = []
+        CSV_file = Path('events.csv')
+        if CSV_file.exists():
+            with CSV_file.open(mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    # Assuming the row contains values in the order as defined in Event
+                    event = Event(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])  # Adjust indices based on CSV structure
+                    events.append(event)
+
+        # Filter events based on the school_class attribute
+        filtered_events = [event.event_list() for event in events if search_query.lower() in event.school_class.lower()]
+
+        return jsonify(filtered_events)
 
 
     # Define the endpoint to search for study spots
-    @app.route("/recommendation", methods=["POST"])
+    @app.route("/getRec", methods=["POST"])
     def recommendation():
         # Get the location value from the input JSON data
-        data = request.get_json()
-        location = data.get("location")
+        location = request.form.get("recLocation")
         
         # Validate that the location was provided
         if not location:
@@ -95,11 +114,25 @@ def create_app(test_config=None):
             "Authorization": "Bearer " + "6jsrkDuonkZm550GADNb_xr3zEfpQzbn8cpYbBe6UEznghFZkt-Rfgmjx0Qmuy7K3fuuHrbdC82xNNZZTmiaXHSrpjr94ymQh27vNmwuB_uYVd1VADZmdnu2FrAmZ3Yx"
         }
         
-        # Send a request to the Yelp API
+
         try:
-            response = requests.post(url, json=payload, headers=header)
+            response = requests.get(url, params=payload, headers=header)
             response.raise_for_status()
-            return jsonify(response.json())  # Return Yelp API response as JSON
+            
+            # Parse and filter the JSON response
+            businesses = response.json().get("businesses", [])
+            
+            # Extract only name, address, and image_url for each business
+            recommendations = [
+                {
+                    "name": business.get("name"),
+                    "address": ", ".join(business["location"]["display_address"]),
+                    "image_url": business.get("photos")
+                }
+                for business in businesses
+            ]
+            
+            return jsonify(recommendations)
         except requests.exceptions.RequestException as e:
             return jsonify({"error": str(e)}), 500
     
