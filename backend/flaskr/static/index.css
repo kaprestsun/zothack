@@ -4,7 +4,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 #title{
@@ -29,13 +28,14 @@ body {
     font-size: 16px;
     border-radius: 5px;
     font-family: "Lucida Console", "Courier New", monospace;
+    text-decoration: none;
 }
 
 #addEvent:hover {
     background-color:  #f5b3cd; 
     font-family: "Lucida Console", "Courier New", monospace;
-    cursor: grab;
-
+    cursor: grab; 
+    color: white;
 }
 
 #attend{
@@ -52,6 +52,7 @@ body {
 #attend:hover {
     background-color: #f6c7da;
     color:  black;
+    cursor: grab;
 }
 
 .top{
@@ -59,15 +60,39 @@ body {
     align-items: center;
 }
 
-.eventBox{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    color: white;
-    background-color: black;
-    width: 300px;
-    border: 5px solid white;
-    border-radius: 8px;
-    padding: 30px;
+.eventList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 10px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.eventList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.eventList::-webkit-scrollbar-track {
+    background:#f6c7da; 
+}
+
+.eventList::-webkit-scrollbar-thumb {
+    background: #f88ac0;
+    border-radius: 10px;
+
+}
+
+.eventBox {
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.outline{
+    border: 5px solid  #f6c7da;
+    padding: 10px;  
+    border-radius: 5px;
 }

@@ -20,6 +20,7 @@
     font-size: 16px;
     border-radius: 5px;
     font-family: "Lucida Console", "Courier New", monospace;
+    text-decoration: none;
 }
 
 #addEvent:hover {
@@ -89,13 +90,14 @@ body {
     outline: none; 
     box-shadow: none;
     border-radius: 5px;
+    text-decoration: none;
 
 }
 
 .homeButton:hover{
-    background-color: #f6c7da;
-    color: black;
+    color: #f6c7da;
     cursor: grab;
+    text-decoration: underline;
 
 }
 .title{
