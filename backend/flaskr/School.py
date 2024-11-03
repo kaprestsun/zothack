@@ -14,4 +14,4 @@ class Event:
         self.attendees += 1
 
     def event_list(self):
-         return [self.event_id, self.name, self.location, self.school_class, self.professor, self.major, self.time, self.date]
+         return [self.event_id, self.name, self.location, self.school_class, self.professor, self.major, self.time, self.date, self.attendees]
