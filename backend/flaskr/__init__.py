@@ -48,7 +48,7 @@ def create_app(test_config=None):
         time = request.form.get("eventTime")
 
         CSV_file = Path('events.csv')
-        event = Event(str(uuid.uuid4()), name, location, school_class, professor, major, time, date)
+        event = Event(str(uuid.uuid4()), name, location, school_class, professor, major, date, time)
         with CSV_file.open(mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(event.event_list())
@@ -87,19 +87,6 @@ def create_app(test_config=None):
     def goback():
         return render_template("index.html")
     
-    # @app.route("/search")
-    # def search():
-    #     query = request.form.get("search")
-    #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
-    #     return results
-
-    
-    # @app.route("/search")
-    # def search():
-    #     query = request.form.get("search")
-    #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
-    #     return results
-
 
     @app.route("/filter", methods=["POST"])
     def filter_events():
@@ -114,48 +101,31 @@ def create_app(test_config=None):
             with CSV_file.open(mode='r', newline='') as file:
                 reader = csv.reader(file)
                 for row in reader:
-                    # Assuming the row contains values in the order as defined in Event
-                    # Assuming the row contains values in the order as defined in Event
                     event = Event(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])  # Adjust indices based on CSV structure
                     events.append(event)
 
-        # Filter events based on the school_class attribute
-        # Filter events based on the school_class attribute
         filtered_events = [event.event_list() for event in events if search_query.lower() in event.school_class.lower()]
 
         return jsonify(filtered_events)
 
 
-    # Define the endpoint to search for study spots
-
-    # Define the endpoint to search for study spots
-    @app.route("/getRec", methods=["POST"])
+    @app.route("/getRec")
     def recommendation():
-        # Get the location value from the input JSON data
-        # Get the location value from the input JSON data
-        location = request.form.get("recLocation")
-        
-        # Validate that the location was provided
+
+        location = request.args.get("location")
+
         
         if not location:
             return jsonify({"error": "Location is required"}), 400
 
-        # Yelp API URL and payload
-        #print(f"Location: {location}")
-
-        # Yelp API URL and payload
-        # url = "https://api.yelp.com/v3/businesses/search"
         url = "https://api.yelp.com/v3/businesses/search"
         payload = {
-            # "messages": [{"content": "study spots and cafes"}],
             "term": "cafes",
-            "location": "Irvine",
+            "location": location,
             "limit": 3
 
         }
 
-        # Authorization header with API key
-        # Authorization header with API key
         header = {
             "accept": "application/json",
             "content-type": "application/json",
@@ -164,18 +134,12 @@ def create_app(test_config=None):
         
         try:
             response = requests.get(url, params=payload, headers=header)
-            #print("hi")
-            #print(f'Hi{response}')
+
             response.raise_for_status()
-            #print("hello")
-            
-            # Parse and filter the JSON response
-            # Parse and filter the JSON response
+
             businesses = response.json().get("businesses", [])
             
-            
-            # Extract only name, address, and image_url for each business
-            # Extract only name, address, and image_url for each business
+        
             recommendations = [
                 {
                     "name": business.get("name"),
@@ -184,7 +148,6 @@ def create_app(test_config=None):
                 }
                 for business in businesses
             ]
-            #print(recommendations)
             
             return jsonify(recommendations)
         except requests.exceptions.RequestException as e:
@@ -193,21 +156,3 @@ def create_app(test_config=None):
     return app
 
 
-#if __name__ == "__main__":
-   # app = create_app()
-    #app.run(host='0.0.0.0', port=5000, debug=True)
-
-    
-
-# goback event
-# attend event
-
-
-#if __name__ == "__main__":
-   # app = create_app()
-    #app.run(host='0.0.0.0', port=5000, debug=True)
-
-    
-
-# goback event
-# attend event
