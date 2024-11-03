@@ -29,7 +29,6 @@
                 <p class="date">Date: {{ event[6] | replace("'", "") }}</p>
                 <p class="time">Time: {{ event[7] | replace("'", "") }}</p>
                 <p class="attendees">Attendees: {{ event[8] | replace("'", "") | replace("]", "") }}</p>
-                    <!-- <button type="submit">Attend</button> -->
                 <form action="/attend" method="POST">
                     <input type="hidden" name="event_id" value="{{ event[0] }}"> <!-- Pass the index as event_id -->
                     <button type="submit" id="attend">Attend</button>
