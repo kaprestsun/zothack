@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../static/index.css" />
     <script src = "script.js"></script>
     <title>Document</title>
 </head>
@@ -11,21 +11,25 @@
     <div class = "container">
         <div class = "top">
             <h1 id = "title">ManGo Study</h1>
-            <button id="addEvent" onclick = "clicked()">Add Event</button>
+            <a href="addEvent.html" class="button" id="addEvent">Add Event</a>
         </div>
         <div class ="heading">
             <h2 id = "headingTitle">Study Sessions Around Irvine</h2>
         </div>
-        <div class ="eventList">
+
+        <div class="eventList">
             {% for event in events %}
-                {{ event.name }} - {{ event.location }} 
-                <form action="{{ url_for('attend', event_id=event.event_id) }}" method="POST" style="display:inline;">
-                    <input type="submit" value="Attend">
-                </form>
-                (Attendees: {{ event.attendees }})
-                <!--<img src="pic_trulli.jpg" width="500" height="333">-->
+            <div>
+                <h2 class="name">{{ event[1] }}</h2>
+                <p class="location">Location: {{ event[2] }}</p>
+                <p class="schoolClass">Class: {{ event[3] }}</p>
+                <p class="professor">Professor: {{ event[4]}}</p>
+                <p class="major">Major: {{ event[5] }}</p>
+                <p class="date">Date: {{ event[6] }}</p>
+                <p class="time">Time: {{ event[7] }}</p>
+                <p class="attendees">Attendees: {{ event.attendees }}</p>
+            </div>
             {% endfor %}
-               
         </div>
     </div>
 </body>
