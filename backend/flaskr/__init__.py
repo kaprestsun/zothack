@@ -52,12 +52,30 @@ def create_app(test_config=None):
             writer.writerow(event.event_list())
         return redirect(url_for('home'))
     
-    # @app.route("/attend", methods=["POST"])
-    # def attend(event_id):
-    #     event = events[event_id - 1]
-    #     event.add_attendee()
-    #     return event.attendees
-    
+    @app.route("/attend", methods=["POST"])
+    def attend():
+        event_id = request.form.get("event_id")
+        event_id = event_id.replace("[","").replace("'","")
+        CSV_file = Path('events.csv')
+        events = []
+        with CSV_file.open(mode='r', newline='') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                events.append(row)
+        print(events)
+        for row in events:
+            print(row[0])
+            print(event_id)
+            if row[0] == event_id:
+                print(row[0], row[8])
+                row[8] = str(int(row[8]) + 1)
+                break
+        with CSV_file.open(mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(events)
+        return redirect(url_for('home'))
+
+
     @app.route("/goback")
     def goback():
         return render_template("index.html")
