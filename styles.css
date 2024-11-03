@@ -28,6 +28,7 @@ body {
     border-radius: 5px;
 
 }
+
 .homeButton:hover{
     background-color: #f6c7da;
     color: black;
@@ -53,6 +54,13 @@ body {
     color: white;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.totalContainer{
+    display:flex;
+    justify-content: space-around;
+    padding: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 form input {
@@ -82,4 +90,41 @@ input:hover{
 
 #submitButton:hover {
     background-color: #f5b3cd;
+}
+
+#fetchRecommendations{
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f6c7da;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#fetchRecommendations:hover {
+    background-color: #f5b3cd;
+}
+.recommendationCard{
+    padding: 20px;
+    margin-top: 10px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.recPics{
+    width: 100px;
+    height: 100px; 
+    display: flex;
+    flex-wrap: wrap;
+    width: 33%;
+    border: 1px solid white;    
+}
+.recTitle{
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    margin: auto; 
+    flex: 1;
 }
