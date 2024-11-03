@@ -1,12 +1,12 @@
 import os
 
 from flask import Flask, jsonify, render_template, request
-from flaskr import School
+from flaskr.School import Event
+import uuid
+from pathlib import Path
+import csv
 import os
 import requests
-
-
-events = []
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -27,15 +27,14 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        response = {
-        'message': 'Hello, this is a JSON response!'
-    }
-        return jsonify(response)
-        #return render_template("index.html")
-
-    @app.route("/addevent")
-    def create_event():
-        return render_template("insert the html page with add event. THIS IS CORRECT!")
+        events = []
+        CSV_file = Path('events.csv')
+        if CSV_file.exists():
+            with CSV_file.open(mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    events.append(row)
+        return render_template("addEvent.html", events=events)
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
@@ -47,15 +46,18 @@ def create_app(test_config=None):
         date = request.form.get("eventDate")
         time = request.form.get("eventTime")
 
-        event = School.Event(name, location, school_class, professor, major, time, date)
-        events.append(event)
-        return render_template("insert the html page with add event")
+        CSV_file = Path('events.csv')
+        event = Event(str(uuid.uuid4()), name, location, school_class, professor, major, time, date)
+        with CSV_file.open(mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(event.event_list())
+        return render_template("index.html")
 
-    @app.route("/attend", methods=["POST"])
-    def attend(event_id):
-        event = events[event_id - 1]
-        event.add_attendee()
-        return event.attendees
+    # @app.route("/attend", methods=["POST"])
+    # def attend(event_id):
+    #     event = events[event_id - 1]
+    #     event.add_attendee()
+    #     return event.attendees
     
     @app.route("/goback")
     def goback():
