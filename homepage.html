@@ -16,7 +16,6 @@
         <div class ="heading">
             <h2 id = "headingTitle">Study Sessions Around Irvine</h2>
         </div>
-
         <div class ="eventList">
             {% for event in events %}
                 {{ event.name }} - {{ event.location }} 
@@ -25,6 +24,7 @@
                 </form>
                 (Attendees: {{ event.attendees }})
                 <!--<img src="pic_trulli.jpg" width="500" height="333">-->
+            {% endfor %}
                
         </div>
     </div>
