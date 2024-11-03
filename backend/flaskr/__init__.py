@@ -123,15 +123,21 @@ def create_app(test_config=None):
         location = request.form.get("recLocation")
         
         # Validate that the location was provided
+        
         if not location:
             return jsonify({"error": "Location is required"}), 400
 
+        #print(f"Location: {location}")
+
         # Yelp API URL and payload
-        url = "https://api.yelp.com/v3/businesses/natural_language_search"
+        # url = "https://api.yelp.com/v3/businesses/search"
+        url = "https://api.yelp.com/v3/businesses/search"
         payload = {
-            "messages": [{"content": "study spots and cafes"}],
+            # "messages": [{"content": "study spots and cafes"}],
+            "term": "cafes",
             "location": "Irvine",
-            "timezone": "America/New_York"
+            "limit": 3
+
         }
 
         # Authorization header with API key
@@ -143,7 +149,10 @@ def create_app(test_config=None):
         
         try:
             response = requests.get(url, params=payload, headers=header)
+            #print("hi")
+            #print(f'Hi{response}')
             response.raise_for_status()
+            #print("hello")
             
             # Parse and filter the JSON response
             businesses = response.json().get("businesses", [])
@@ -154,11 +163,11 @@ def create_app(test_config=None):
                 {
                     "name": business.get("name"),
                     "address": ", ".join(business["location"]["display_address"]),
-                    "image_url": business.get("photos")
+                    "image_url": business.get("image_url")
                 }
                 for business in businesses
             ]
-            print(recommendations)
+            #print(recommendations)
             
             return jsonify(recommendations)
         except requests.exceptions.RequestException as e:
