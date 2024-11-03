@@ -1,0 +1,159 @@
+#title{
+    text-align: center;
+    margin: auto;
+    font-size: 90px;
+    color: #f5b3cd;
+}
+
+#headingTitle{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    margin: auto;
+    padding: 50px;
+}
+#addEvent{
+    border: none;
+    background-color: #f6c7da;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+#addEvent:hover {
+    background-color:  #f5b3cd; 
+    font-family: "Lucida Console", "Courier New", monospace;
+    cursor: pointer;
+    color: white;
+}
+
+#attend{
+    border: none;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#attend:hover {
+    background-color:  #f5b3cd; 
+    color: black;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.top{
+    display: flex;
+    align-items: center;
+}
+
+.eventList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    background-color: black;
+    width: 300px;
+    border: 5px solid white;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+body {
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.header{
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    width: 100%;
+}
+.homeButton{
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    text-align: left; 
+    margin-right: auto;
+    font-family: "Courier New", Courier, monospace;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none; 
+    box-shadow: none;
+    border-radius: 5px;
+
+}
+.homeButton:hover{
+    background-color: #f6c7da;
+    color: black;
+    cursor: grab;
+
+}
+.title{
+    text-align: center;
+    font-size: 2em;
+    margin-right: 85px;
+    flex: 1;
+}
+
+.eventPage {
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: light; 
+    width: 60%;
+    padding: 20px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+form input {
+    font-family: "Courier New", Courier, monospace;
+    color: #f6c7da;
+    background-color: black;
+    margin: 10px 0;
+    padding: 10px;
+    width: 90%;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+input:hover{
+    background-color: #f6c7da;
+    color: black;
+}
+
+#submitButton {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f6c7da;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#submitButton:hover {
+    background-color: #f5b3cd;
+}
+
+.eventBox{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+}
