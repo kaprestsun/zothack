@@ -21,7 +21,7 @@ async function fetchEvents() {
             eventDiv.innerHTML = `
                 <h2>${event.name}</h2>
                 <p>Location: ${event.location}</p>
-                <p>Major: ${event.Major}</p>
+                <p>Major: ${event.major}</p>
                 <p>Class: ${event.class}</p>
                 <p>Professor: ${event.professor}</p>
                 <p>Date: ${event.date}</p>
