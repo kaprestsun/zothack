@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, jsonify, render_template, request, redirect, url_for
+import requests
 from flaskr.School import Event
 import uuid
 from pathlib import Path
@@ -68,7 +69,84 @@ def create_app(test_config=None):
     #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
     #     return results
 
+
+    @app.route("/filter", methods=["POST"])
+    def filter_events():
+        search_query = request.form.get("className")
+        
+        if not search_query:
+            return jsonify({"error": "Class name is required"}), 400
+
+        events = []
+        CSV_file = Path('events.csv')
+        if CSV_file.exists():
+            with CSV_file.open(mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    # Assuming the row contains values in the order as defined in Event
+                    event = Event(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])  # Adjust indices based on CSV structure
+                    events.append(event)
+
+        # Filter events based on the school_class attribute
+        filtered_events = [event.event_list() for event in events if search_query.lower() in event.school_class.lower()]
+
+        return jsonify(filtered_events)
+
+
+    # Define the endpoint to search for study spots
+    @app.route("/getRec", methods=["POST"])
+    def recommendation():
+        # Get the location value from the input JSON data
+        location = request.form.get("recLocation")
+        
+        # Validate that the location was provided
+        if not location:
+            return jsonify({"error": "Location is required"}), 400
+        
+        # Yelp API URL and payload
+        url = "https://api.yelp.com/v3/businesses/natural_language_search"
+        payload = {
+            "messages": [{"content": "study spots and cafes"}],
+            "location": location,
+            "timezone": "America/New_York"
+        }
+
+        # Authorization header with API key
+        header = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer " + "6jsrkDuonkZm550GADNb_xr3zEfpQzbn8cpYbBe6UEznghFZkt-Rfgmjx0Qmuy7K3fuuHrbdC82xNNZZTmiaXHSrpjr94ymQh27vNmwuB_uYVd1VADZmdnu2FrAmZ3Yx"
+        }
+        
+        try:
+            response = requests.get(url, params=payload, headers=header)
+            response.raise_for_status()
+            
+            # Parse and filter the JSON response
+            businesses = response.json().get("businesses", [])
+            
+            # Extract only name, address, and image_url for each business
+            recommendations = [
+                {
+                    "name": business.get("name"),
+                    "address": ", ".join(business["location"]["display_address"]),
+                    "image_url": business.get("photos")
+                }
+                for business in businesses
+            ]
+            
+            return jsonify(recommendations)
+        except requests.exceptions.RequestException as e:
+            return jsonify({"error": str(e)}), 500
+    
     return app
+
+
+#if __name__ == "__main__":
+   # app = create_app()
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+
+    
 
 # goback event
 # attend event
