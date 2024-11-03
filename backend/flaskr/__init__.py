@@ -34,11 +34,11 @@ def create_app(test_config=None):
                 for row in reader:
                     row_split = str(row).split(',')
                     events.append(row_split)
+        print(events, 'events')
         return render_template("index.html", events=events)
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
-        print("Hsds")
         name = request.form.get("eventName")
         location = request.form.get("eventLocation")
         school_class = request.form.get("eventClass")
