@@ -1,5 +1,68 @@
+#title{
+    text-align: center;
+    margin: auto;
+    font-size: 90px;
+    color: #f5b3cd;
+}
+
+#headingTitle{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    margin: auto;
+    padding: 50px;
+}
+#addEvent{
+    border: none;
+    background-color: #f6c7da;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#addEvent:hover {
+    background-color:  #f5b3cd; 
+    font-family: "Lucida Console", "Courier New", monospace;
+    cursor: grab;
+}
+
+#attend{
+    border: none;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#attend:hover {
+    background-color:  #f5b3cd; 
+    color: black;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.top{
+    display: flex;
+    align-items: center;
+}
+
+.eventList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    background-color: black;
+    width: 300px;
+    border: 5px solid white;
+    border-radius: 8px;
+    padding: 30px;
+}
+
 body {
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
     background-color: black;
     display: flex;
     justify-content: center;
@@ -26,9 +89,9 @@ body {
     outline: none; 
     box-shadow: none;
     border-radius: 5px;
-    text-decoration: none;
 
 }
+
 .homeButton:hover{
     background-color: #f6c7da;
     color: black;
@@ -38,11 +101,13 @@ body {
 .title{
     text-align: center;
     font-size: 2em;
-    margin-bottom: 20px;
     margin-right: 85px;
     flex: 1;
 }
-
+.totalContainer{
+    display: flex;
+    margin: auto;
+}
 .container {
     text-align: center;
     font-family: "Courier New", Courier, monospace;
@@ -54,6 +119,13 @@ body {
     color: white;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.totalContainer{
+    display:flex;
+    justify-content: space-around;
+    padding: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 form input {
@@ -76,17 +148,48 @@ input:hover{
     background-color: #f6c7da;
     color: black;
     border: none;
-    margin-top: 10px;
-    padding: 8px 15px;
+    padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    text-decoration: none;
 }
 
 #submitButton:hover {
     background-color: #f5b3cd;
 }
 
-#desc{
-    margin-top: 2px;
+#fetchRecommendations{
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f6c7da;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#fetchRecommendations:hover {
+    background-color: #f5b3cd;
+}
+.recommendationCard{
+    padding: 20px;
+    margin-top: 10px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.recPics{
+    width: 100px;
+    height: 100px; 
+    display: flex;
+    flex-wrap: wrap;
+    width: 33%;
+    border: 1px solid white;    
+}
+.recTitle{
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    margin: auto; 
+    flex: 1;
 }
