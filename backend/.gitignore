@@ -1,9 +1,11 @@
 .venv/
 venv/
 flask_env/
-.csv
+*.csv
 *.pyc
 __pycache__/
+.env
+.csv
 
 instance/
 
