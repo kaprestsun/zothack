@@ -82,9 +82,17 @@ def create_app(test_config=None):
         return redirect(url_for('home'))
 
 
+
     @app.route("/goback")
     def goback():
         return render_template("index.html")
+    
+    # @app.route("/search")
+    # def search():
+    #     query = request.form.get("search")
+    #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
+    #     return results
+
     
     # @app.route("/search")
     # def search():
@@ -107,9 +115,11 @@ def create_app(test_config=None):
                 reader = csv.reader(file)
                 for row in reader:
                     # Assuming the row contains values in the order as defined in Event
+                    # Assuming the row contains values in the order as defined in Event
                     event = Event(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])  # Adjust indices based on CSV structure
                     events.append(event)
 
+        # Filter events based on the school_class attribute
         # Filter events based on the school_class attribute
         filtered_events = [event.event_list() for event in events if search_query.lower() in event.school_class.lower()]
 
@@ -117,8 +127,11 @@ def create_app(test_config=None):
 
 
     # Define the endpoint to search for study spots
+
+    # Define the endpoint to search for study spots
     @app.route("/getRec", methods=["POST"])
     def recommendation():
+        # Get the location value from the input JSON data
         # Get the location value from the input JSON data
         location = request.form.get("recLocation")
         
@@ -127,6 +140,7 @@ def create_app(test_config=None):
         if not location:
             return jsonify({"error": "Location is required"}), 400
 
+        # Yelp API URL and payload
         #print(f"Location: {location}")
 
         # Yelp API URL and payload
@@ -140,6 +154,7 @@ def create_app(test_config=None):
 
         }
 
+        # Authorization header with API key
         # Authorization header with API key
         header = {
             "accept": "application/json",
@@ -155,9 +170,11 @@ def create_app(test_config=None):
             #print("hello")
             
             # Parse and filter the JSON response
+            # Parse and filter the JSON response
             businesses = response.json().get("businesses", [])
             
             
+            # Extract only name, address, and image_url for each business
             # Extract only name, address, and image_url for each business
             recommendations = [
                 {
@@ -174,6 +191,16 @@ def create_app(test_config=None):
             return jsonify({"error": str(e)}), 500
     
     return app
+
+
+#if __name__ == "__main__":
+   # app = create_app()
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+
+    
+
+# goback event
+# attend event
 
 
 #if __name__ == "__main__":
