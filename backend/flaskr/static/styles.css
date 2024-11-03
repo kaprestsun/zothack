@@ -20,6 +20,7 @@
     font-size: 16px;
     border-radius: 5px;
     font-family: "Lucida Console", "Courier New", monospace;
+    text-decoration: none;
 }
 
 #addEvent:hover {

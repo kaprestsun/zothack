@@ -19,6 +19,7 @@
 
         <div class="eventList">
             {% for event in events %}
+            <div class="outline">
             <div class="eventBox">
                 <h2 class="name">{{ event[1] | replace("'", "") }}</h2>
                 <p class="location">Location: {{ event[2] | replace("'", "") }}</p>
@@ -31,9 +32,9 @@
                     <!-- <button type="submit">Attend</button> -->
                 <form action="/attend" method="POST">
                     <input type="hidden" name="event_id" value="{{ event[0] }}"> <!-- Pass the index as event_id -->
-                    <button type="submit">Attend</button>
+                    <button type="submit" id="attend">Attend</button>
                 </form>
-                </form>
+            </div>
             </div>
             {% endfor %}
         </div>
