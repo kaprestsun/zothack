@@ -11,25 +11,28 @@
     <div class = "container">
         <div class = "top">
             <h1 id = "title">ManGo Study</h1>
-            <a href="addEvent.html" id="addEvent">Add Event</a>
+            <a href="{{ url_for('addEvent') }}" class="button" id="addEvent">Add Event</a>
         </div>
         <div class ="heading">
-            <h2 id = "headingTitle">Study Sessions Around Irvine</h2>
+            <h2 id = "headingTitle">Study Sessions For UCI Students</h2>
         </div>
 
         <div class="eventList">
             {% for event in events %}
             <div class="eventBox">
-                <h2 class="name">{{ event[1] }}</h2>
-                <p class="location">Location: {{ event[2] }}</p>
-                <p class="schoolClass">Class: {{ event[3] }}</p>
-                <p class="professor">Professor: {{ event[4]}}</p>
-                <p class="major">Major: {{ event[5] }}</p>
-                <p class="date">Date: {{ event[6] }}</p>
-                <p class="time">Time: {{ event[7] }}</p>
-                <p class="attendees">Attendees: {{ event[8] }}</p>
-                <form action="/submit" id="attendForm" method="POST">
-                    <button id = "attend" type="submit">Attend</button>
+                <h2 class="name">{{ event[1] | replace("'", "") }}</h2>
+                <p class="location">Location: {{ event[2] | replace("'", "") }}</p>
+                <p class="schoolClass">Class: {{ event[3] | replace("'", "") }}</p>
+                <p class="professor">Professor: {{ event[4] | replace("'", "") }}</p>
+                <p class="major">Major: {{ event[5] | replace("'", "") }}</p>
+                <p class="date">Date: {{ event[6] | replace("'", "") }}</p>
+                <p class="time">Time: {{ event[7] | replace("'", "") }}</p>
+                <p class="attendees">Attendees: {{ event[8] | replace("'", "") | replace("]", "") }}</p>
+                    <!-- <button type="submit">Attend</button> -->
+                <form action="/attend" method="POST">
+                    <input type="hidden" name="event_id" value="{{ event[0] }}"> <!-- Pass the index as event_id -->
+                    <button type="submit">Attend</button>
+                </form>
                 </form>
             </div>
             {% endfor %}

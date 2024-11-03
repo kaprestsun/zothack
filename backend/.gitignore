@@ -1,7 +1,11 @@
 .venv/
 venv/
+flask_env/
+*.csv
 *.pyc
 __pycache__/
+.env
+.csv
 
 instance/
 
