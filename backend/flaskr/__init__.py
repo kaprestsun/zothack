@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flaskr.School import Event
 import uuid
 from pathlib import Path
@@ -31,8 +31,9 @@ def create_app(test_config=None):
             with CSV_file.open(mode='r', newline='') as file:
                 reader = csv.reader(file)
                 for row in reader:
-                    events.append(row)
-        return render_template("addEvent.html", events=events)
+                    row_split = str(row).split(',')
+                    events.append(row_split)
+        return render_template("index.html", events=events)
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
@@ -40,7 +41,7 @@ def create_app(test_config=None):
         location = request.form.get("eventLocation")
         school_class = request.form.get("eventClass")
         professor = request.form.get("eventProfessor")
-        major = request.form.get("Major")
+        major = request.form.get("eventMajor")
         date = request.form.get("eventDate")
         time = request.form.get("eventTime")
 
@@ -49,7 +50,7 @@ def create_app(test_config=None):
         with CSV_file.open(mode='a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(event.event_list())
-        return render_template("index.html")
+        return redirect(url_for('home'))
     
     # @app.route("/attend", methods=["POST"])
     # def attend(event_id):

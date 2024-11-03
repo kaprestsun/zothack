@@ -20,12 +20,16 @@
     font-size: 16px;
     border-radius: 5px;
     font-family: "Lucida Console", "Courier New", monospace;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 #addEvent:hover {
     background-color:  #f5b3cd; 
     font-family: "Lucida Console", "Courier New", monospace;
-    cursor: grab;
+    cursor: pointer;
+    color: white;
 }
 
 #attend{
