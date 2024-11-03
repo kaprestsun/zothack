@@ -50,7 +50,7 @@ def create_app(test_config=None):
             writer = csv.writer(file)
             writer.writerow(event.event_list())
         return render_template("index.html")
-
+    
     # @app.route("/attend", methods=["POST"])
     # def attend(event_id):
     #     event = events[event_id - 1]
@@ -67,7 +67,7 @@ def create_app(test_config=None):
     #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
     #     return results
 
-
+    return app
 
 # goback event
 # attend event
