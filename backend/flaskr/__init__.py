@@ -1,10 +1,10 @@
 import os
 
-from flask import Flask, jsonify, render_template, request
-from School import Event
-
-attendees = 0
-events = []
+from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flaskr.School import Event
+import uuid
+from pathlib import Path
+import csv
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -25,11 +25,15 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        return render_template("index.html")
-
-    @app.route("/addevent")
-    def create_event():
-        return render_template("insert the html page with add event")
+        events = []
+        CSV_file = Path('events.csv')
+        if CSV_file.exists():
+            with CSV_file.open(mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    row_split = str(row).split(',')
+                    events.append(row_split)
+        return render_template("index.html", events=events)
 
     @app.route("/submit", methods=["POST"])
     def submit_event():
@@ -37,32 +41,34 @@ def create_app(test_config=None):
         location = request.form.get("eventLocation")
         school_class = request.form.get("eventClass")
         professor = request.form.get("eventProfessor")
-        major = request.form.get("Major")
+        major = request.form.get("eventMajor")
         date = request.form.get("eventDate")
         time = request.form.get("eventTime")
 
-        event = Event(name, location, school_class, professor, major, time, date)
-        events.append(event)
-        return render_template("insert the html page with add event")
-
-
-    @app.route("/attend")
-    def attend():
-        global attendees
-        attendees += 1
-        return str(attendees)
+        CSV_file = Path('events.csv')
+        event = Event(str(uuid.uuid4()), name, location, school_class, professor, major, time, date)
+        with CSV_file.open(mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(event.event_list())
+        return redirect(url_for('home'))
+    
+    # @app.route("/attend", methods=["POST"])
+    # def attend(event_id):
+    #     event = events[event_id - 1]
+    #     event.add_attendee()
+    #     return event.attendees
     
     @app.route("/goback")
     def goback():
         return render_template("index.html")
     
-    @app.route("/search")
-    def search():
-        query = request.form.get("search")
-        results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
-    
-    return app
+    # @app.route("/search")
+    # def search():
+    #     query = request.form.get("search")
+    #     results = [event for event in events if any(query in getattr(event, attr).lower() for attr in ['name', 'location', 'school_class', 'professor', 'major', 'time', 'date'])]
+    #     return results
 
+    return app
 
 # goback event
 # attend event
