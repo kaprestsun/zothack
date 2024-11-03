@@ -19,7 +19,7 @@
 
         <div class="eventList">
             {% for event in events %}
-            <div>
+            <div class="eventBox">
                 <h2 class="name">{{ event[1] }}</h2>
                 <p class="location">Location: {{ event[2] }}</p>
                 <p class="schoolClass">Class: {{ event[3] }}</p>
@@ -27,7 +27,11 @@
                 <p class="major">Major: {{ event[5] }}</p>
                 <p class="date">Date: {{ event[6] }}</p>
                 <p class="time">Time: {{ event[7] }}</p>
-                <p class="attendees">Attendees: {{ event.attendees }}</p>
+                <p class="attendees">Attendees: {{ event[8] }}</p>
+                <form action="/submit" id="attendForm" method="POST">
+                    <button type="submit">Attend</button>
+                </form>
+                </form>
             </div>
             {% endfor %}
         </div>
