@@ -10,7 +10,7 @@ function clicked(){
 
 async function fetchEvents() {
     try {
-        const response = await fetch('http://localhost:5000/events'); // URL to your Flask backend
+        const response = await fetch('http://127.0.0.1:5000/'); // URL to your Flask backend
         const events = await response.json(); // Parse the JSON response
 
         const eventList = document.getElementById('eventList');
