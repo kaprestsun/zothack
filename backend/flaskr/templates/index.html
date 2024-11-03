@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/index.css" />
+    <script src = "script.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class = "container">
+        <div class = "top">
+            <h1 id = "title">ManGo Study</h1>
+            <button id="addEvent" onclick = "clicked()">Add Event</button>
+        </div>
+        <div class ="heading">
+            <h2 id = "headingTitle">Study Sessions Around Irvine</h2>
+        </div>
 
+        <div class ="eventList">
+            {% for event in events %}
+                {{ event.name }} - {{ event.location }} 
+                <form action="{{ url_for('attend', event_id=event.event_id) }}" method="POST" style="display:inline;">
+                    <input type="submit" value="Attend">
+                </form>
+                (Attendees: {{ event.attendees }})
+        </div>
+    </div>
+</body>
+</html>
