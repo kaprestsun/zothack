@@ -41,7 +41,10 @@ body {
     margin-right: 85px;
     flex: 1;
 }
-
+.totalContainer{
+    display: flex;
+    margin: auto;
+}
 .container {
     text-align: center;
     font-family: "Courier New", Courier, monospace;
@@ -82,4 +85,23 @@ input:hover{
 
 #submitButton:hover {
     background-color: #f5b3cd;
+}
+
+#fetchRecommendations {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f6c7da;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#fetchRecommendations:hover {
+    background-color: #f5b3cd;
+}
+.recTitle{
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    width: 100%;
 }
